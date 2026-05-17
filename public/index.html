@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClientLead CRM | Lead Management for Service Businesses</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="site-body">
+    <header class="public-nav">
+      <div class="brand-block">
+        <div class="brand-mark">CL</div>
+        <div>
+          <strong>ClientLead CRM</strong>
+          <span>Lead operations platform</span>
+        </div>
+      </div>
+      <nav class="public-links" aria-label="Website navigation">
+        <a href="#services">Services</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div id="publicGuestActions" class="public-actions">
+        <a class="secondary-button light" href="/login">Customer login</a>
+        <a class="secondary-button light subtle" href="/admin">Team login</a>
+      </div>
+      <div id="publicUserActions" class="public-actions hidden">
+        <span id="publicUserChip" class="public-user-chip">Signed in</span>
+        <a id="publicDashboardLink" class="secondary-button light subtle hidden" href="/admin">Dashboard</a>
+        <button id="publicLogoutButton" class="secondary-button light" type="button">Logout</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="website-hero">
+        <div class="hero-content">
+          <p class="eyebrow">Client Lead Management</p>
+          <h1>Convert website inquiries into organized client pipelines.</h1>
+          <p>
+            ClientLead CRM helps agencies, freelancers, and startups capture every inquiry,
+            assign follow-ups, and track the complete journey from new lead to converted client.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-link" href="#contact">Book a consultation</a>
+          </div>
+        </div>
+
+        <div class="hero-product" aria-label="CRM dashboard preview">
+          <div class="preview-header">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="preview-grid">
+            <article>
+              <small>Total leads</small>
+              <strong>128</strong>
+            </article>
+            <article>
+              <small>Converted</small>
+              <strong>34</strong>
+            </article>
+          </div>
+          <div class="pipeline-preview">
+            <div>
+              <span>New inquiry</span>
+              <strong>Website redesign</strong>
+            </div>
+            <em>New</em>
+          </div>
+          <div class="pipeline-preview">
+            <div>
+              <span>Follow-up due</span>
+              <strong>Discovery call</strong>
+            </div>
+            <em class="warm">Contacted</em>
+          </div>
+          <div class="pipeline-preview">
+            <div>
+              <span>Proposal accepted</span>
+              <strong>Monthly retainer</strong>
+            </div>
+            <em class="green">Converted</em>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust-strip" aria-label="Business benefits">
+        <span><strong>24h</strong> response focus</span>
+        <span><strong>3</strong> pipeline stages</span>
+        <span><strong>100%</strong> follow-up history</span>
+        <span><strong>Role-based</strong> team access</span>
+      </section>
+
+      <section id="services" class="website-section">
+        <div class="section-heading">
+          <p class="eyebrow">What It Solves</p>
+          <h2>A professional system behind your contact form.</h2>
+          <p>Stop letting client requests sit in inboxes. Give every inquiry a clear owner, status, and next step.</p>
+        </div>
+        <div class="service-grid">
+          <article>
+            <span>01</span>
+            <h3>Lead Capture</h3>
+            <p>Collect name, email, source, message, and company details from your website.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Pipeline Tracking</h3>
+            <p>Move leads through new, contacted, and converted stages with a simple workflow.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Team Follow-Ups</h3>
+            <p>Record notes, see who followed up, and keep client conversations in one place.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="workflow" class="workflow-band">
+        <div>
+          <p class="eyebrow">How It Works</p>
+          <h2>From inquiry to client, without losing momentum.</h2>
+        </div>
+        <ol class="workflow-list">
+          <li>
+            <strong>Capture</strong>
+            <span>A visitor submits a business inquiry from the website.</span>
+          </li>
+          <li>
+            <strong>Qualify</strong>
+            <span>Your team reviews the lead, adds notes, and updates status.</span>
+          </li>
+          <li>
+            <strong>Convert</strong>
+            <span>Converted leads remain visible in analytics and history.</span>
+          </li>
+        </ol>
+      </section>
+
+      <section id="contact" class="contact-section">
+        <div class="contact-copy">
+          <p class="eyebrow">Start A Conversation</p>
+          <h2>Tell us about the client workflow you want to improve.</h2>
+          <p>
+            Submit the form and your inquiry will be saved directly into the CRM dashboard for follow-up.
+          </p>
+        </div>
+
+        <form id="leadForm" class="form-card">
+          <div class="form-heading">
+            <div>
+              <span>New inquiry</span>
+              <strong>Consultation Request</strong>
+            </div>
+            <small id="leadAuthBadge">Login required</small>
+          </div>
+
+          <div id="leadLoginNotice" class="auth-notice">
+            <strong>Login required</strong>
+            <span>Please sign in before submitting a consultation request.</span>
+            <a href="/login">Customer login</a>
+          </div>
+
+          <label>
+            Name
+            <input name="name" autocomplete="name" required />
+          </label>
+
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" required />
+          </label>
+
+          <label>
+            Phone
+            <input name="phone" autocomplete="tel" />
+          </label>
+
+          <label>
+            Company
+            <input name="company" autocomplete="organization" />
+          </label>
+
+          <label>
+            Lead source
+            <select name="source">
+              <option>Website Contact Form</option>
+              <option>Referral</option>
+              <option>LinkedIn</option>
+              <option>Instagram</option>
+              <option>Email Campaign</option>
+            </select>
+          </label>
+
+          <label>
+            Message
+            <textarea name="message" rows="4" placeholder="Tell us what you need"></textarea>
+          </label>
+
+          <label>
+            Attachments
+            <input type="file" name="file" multiple />
+          </label>
+
+          <button id="leadSubmitButton" type="submit">Submit inquiry</button>
+          <p id="leadFormMessage" class="form-message" role="status"></p>
+        </form>
+      </section>
+    </main>
+
+    <script src="/lead-form.js"></script>
+  </body>
+</html>

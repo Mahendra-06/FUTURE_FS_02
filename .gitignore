@@ -1,0 +1,15 @@
+# Dependency directories
+node_modules/
+
+# Local databases and uploads
+data/database.sqlite
+data/uploads/
+data/db.json
+
+# Environment variables
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db

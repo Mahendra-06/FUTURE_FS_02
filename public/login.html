@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Login | ClientLead CRM</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="auth-body">
+    <main class="auth-page">
+      <section class="auth-intro">
+        <a class="brand-block auth-brand" href="/">
+          <div class="brand-mark">CL</div>
+          <div>
+            <strong>ClientLead CRM</strong>
+            <span>Customer access</span>
+          </div>
+        </a>
+        <p class="eyebrow">Consultation Access</p>
+        <h1>Login as a customer to submit a consultation request.</h1>
+        <p>
+          Customer accounts are for sending requests. Team accounts use the internal dashboard
+          to manage leads, notes, and follow-ups.
+        </p>
+        <a class="form-link" href="/admin">Team login for staff</a>
+      </section>
+
+      <section class="auth-card">
+        <div class="auth-tabs" role="tablist" aria-label="Customer authentication">
+          <button id="showLoginTab" class="active" type="button">Login</button>
+          <button id="showRegisterTab" type="button">Create account</button>
+        </div>
+
+        <form id="customerLoginForm" class="auth-form">
+          <h2>Customer login</h2>
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" required />
+          </label>
+          <label>
+            Password
+            <input name="password" type="password" autocomplete="current-password" required />
+          </label>
+          <button type="submit">Login and continue</button>
+        </form>
+
+        <form id="customerRegisterForm" class="auth-form hidden">
+          <h2>Create customer account</h2>
+          <label>
+            Full name
+            <input name="name" autocomplete="name" required />
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" required />
+          </label>
+          <label>
+            Password
+            <input name="password" type="password" minlength="6" autocomplete="new-password" required />
+          </label>
+          <button type="submit">Create account</button>
+        </form>
+
+        <p id="authMessage" class="form-message" role="status"></p>
+      </section>
+    </main>
+
+    <script src="/auth.js"></script>
+  </body>
+</html>

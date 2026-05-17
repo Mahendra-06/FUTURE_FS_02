@@ -1,0 +1,28 @@
+{
+  "name": "mini-crm-lead-management",
+  "version": "1.0.0",
+  "description": "A full-stack mini CRM for managing client leads, follow-ups, and conversions.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "crm",
+    "leads",
+    "node",
+    "javascript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "formidable": "^3.5.4",
+    "mysql2": "^3.22.3",
+    "nodemailer": "^8.0.7",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^6.0.1"
+  }
+}

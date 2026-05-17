@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Mini CRM</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="admin-body">
+    <main id="loginView" class="login-view hidden">
+      <form id="loginForm" class="login-card">
+        <div class="brand-mark">CL</div>
+        <p class="eyebrow">Secure Workspace</p>
+        <h1>Team login</h1>
+        <p class="login-copy">For admins, managers, and sales users who manage inquiries and follow-ups.</p>
+        <label>
+          Email
+          <input name="email" type="email" value="admin@crm.local" required />
+        </label>
+        <label>
+          Password
+          <input name="password" type="password" value="admin123" required />
+        </label>
+        <button type="submit">Log in</button>
+        <a class="form-link" href="/login">Customer login</a>
+        <p id="loginMessage" class="form-message" role="status"></p>
+      </form>
+    </main>
+
+    <main id="dashboardView" class="dashboard hidden">
+      <header class="app-shell-header">
+        <div class="brand-block">
+          <div class="brand-mark">CL</div>
+          <div>
+            <strong>ClientLead CRM</strong>
+            <span>Lead management workspace</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="themeToggle" class="secondary-button" type="button" style="padding: 10px; border-radius: 50%; width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid var(--line-strong);">🌙</button>
+          <div class="user-chip" id="currentUserChip">Signed out</div>
+          <button id="logoutButton" class="secondary-button" type="button">Logout</button>
+        </div>
+      </header>
+
+      <section class="dashboard-title">
+        <div>
+          <p class="eyebrow">Pipeline Overview</p>
+          <h1>Lead Dashboard</h1>
+        </div>
+        <p>Track new inquiries, update lead status, and log the next follow-up without losing context.</p>
+      </section>
+
+      <section class="metrics" aria-label="Lead analytics">
+        <article class="metric-card primary">
+          <span>Total leads</span>
+          <strong id="totalLeads">0</strong>
+        </article>
+        <article class="metric-card">
+          <span>New</span>
+          <strong id="newLeads">0</strong>
+        </article>
+        <article class="metric-card">
+          <span>Contacted</span>
+          <strong id="contactedLeads">0</strong>
+        </article>
+        <article class="metric-card">
+          <span>Converted</span>
+          <strong id="convertedLeads">0</strong>
+        </article>
+        <article class="metric-card">
+          <span>Conversion rate</span>
+          <strong id="conversionRate">0%</strong>
+        </article>
+      </section>
+
+      <section id="usersPanel" class="workspace-panel users-panel hidden">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Access Control</p>
+            <h2>Team Users</h2>
+          </div>
+          <span>Admin only</span>
+        </div>
+        <form id="userForm" class="user-form">
+          <label>
+            Full name
+            <input name="name" placeholder="Priya Sales" required />
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" placeholder="user@company.com" required />
+          </label>
+          <label>
+            Role
+            <select name="role">
+              <option value="sales">Sales</option>
+              <option value="manager">Manager</option>
+              <option value="admin">Admin</option>
+            </select>
+          </label>
+          <label>
+            Password
+            <input name="password" type="password" minlength="6" placeholder="Minimum 6 characters" required />
+          </label>
+          <button type="submit">Create user</button>
+        </form>
+        <p id="userFormMessage" class="form-message" role="status"></p>
+        <div id="usersList" class="users-list"></div>
+      </section>
+
+      <section class="workspace-panel">
+        <div class="toolbar" aria-label="Lead filters">
+          <label>
+            Search leads
+            <input id="searchInput" placeholder="Search name, email, company, source" />
+          </label>
+          <label>
+            Pipeline status
+            <select id="statusFilter">
+              <option value="all">All leads</option>
+              <option value="new">New</option>
+              <option value="contacted">Contacted</option>
+              <option value="converted">Converted</option>
+            </select>
+          </label>
+          <a href="/api/leads/export" download class="secondary-button" style="text-decoration: none; display: inline-flex; align-items: center; height: fit-content; align-self: flex-end; margin-left: auto;">
+            Download CSV
+          </a>
+        </div>
+
+        <section id="leadsList" class="leads-list" aria-live="polite"></section>
+      </section>
+    </main>
+
+    <script src="/admin.js"></script>
+  </body>
+</html>
