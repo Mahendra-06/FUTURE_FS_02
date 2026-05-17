@@ -13,7 +13,8 @@ const PORT = Number(process.env.PORT || 3000);
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@crm.local";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin123";
 const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex");
-const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : path.join(__dirname, "data");
+const isVercel = !!process.env.VERCEL;
+const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : (isVercel ? "/tmp" : path.join(__dirname, "data"));
 const DB_PATH = process.env.DB_PATH ? path.resolve(process.env.DB_PATH) : path.join(DATA_DIR, "database.sqlite");
 const PUBLIC_DIR = path.join(__dirname, "public");
 const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
@@ -199,6 +200,9 @@ async function addEmailNotification({ to, subject, message, leadId, type }) {
   if (!recipients.length) return;
   await db.run('INSERT INTO email_outbox (id, recipient_to, subject, message, leadId, type, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
     [crypto.randomUUID(), JSON.stringify(recipients), subject, message, leadId, type, 'queued', new Date().toISOString()]);
+  
+  // Trigger email processing immediately (fire-and-forget, essential for serverless)
+  processEmailQueue().catch(err => console.error("Email processing failed:", err));
 }
 
 async function getLeadsWithNotes(filterSql = "", filterParams = []) {
@@ -571,7 +575,31 @@ async function serveStatic(req, res, url) {
   }
 }
 
+let dbPromise = null;
+let mailerPromise = null;
+
+function getDbConnection() {
+  if (!dbPromise) {
+    dbPromise = ensureDatabase();
+  }
+  return dbPromise;
+}
+
+function getMailerConnection() {
+  if (!mailerPromise) {
+    mailerPromise = initMailer();
+  }
+  return mailerPromise;
+}
+
 const server = http.createServer(async (req, res) => {
+  try {
+    await getDbConnection();
+    await getMailerConnection();
+  } catch (err) {
+    console.error("Initialization failed:", err);
+    return sendJson(res, 500, { error: "Internal server initialization error." });
+  }
   const url = new URL(req.url, `http://${req.headers.host}`);
   if (url.pathname.startsWith("/api/")) return await handleApi(req, res, url);
   await serveStatic(req, res, url);
@@ -604,11 +632,16 @@ async function processEmailQueue() {
   } catch (err) { console.error("Email queue error:", err); }
 }
 
-ensureDatabase().then(() => initMailer()).then(() => {
-  setInterval(processEmailQueue, 10000);
-  processEmailQueue();
-  server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
-}).catch(err => {
-  console.error("Database init failed:", err);
-  process.exit(1);
-});
+// Start server listening locally (only if not running on Vercel serverless)
+if (!process.env.VERCEL) {
+  getDbConnection().then(() => getMailerConnection()).then(() => {
+    setInterval(processEmailQueue, 10000);
+    processEmailQueue();
+    server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+  }).catch(err => {
+    console.error("Database init failed:", err);
+    process.exit(1);
+  });
+}
+
+module.exports = server;
