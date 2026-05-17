@@ -13,3 +13,5 @@ data/db.json
 # OS files
 .DS_Store
 Thumbs.db
+
+.vercel
